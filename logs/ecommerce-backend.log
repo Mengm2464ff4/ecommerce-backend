@@ -25,3 +25,5 @@
 2026-10-31T12:36:36.814+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2026-10-31T12:36:36.913+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] c.e.e.Controller.ProductController       : Fetching active products
 2026-10-31T12:36:37.148+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-3] c.e.e.Controller.CartController          : Fetching cart for user: deploy
+2026-10-31T13:23:24.831+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-8] c.e.e.Controller.ProductController       : Fetching active products
+2026-10-31T13:23:24.886+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-4] c.e.e.Controller.CartController          : Fetching cart for user: deploy
