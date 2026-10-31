@@ -98,7 +98,9 @@ public class SecurityConfig {
                                 // Public product/category GET requests
                                 .requestMatchers(
                                         HttpMethod.GET,
-                                        "/api/products/**"
+                                        "/api/products/**",
+                                        "/api/products",
+                                        "/api/categories"
                                 )
                                 .permitAll()
 
@@ -183,7 +185,7 @@ public class SecurityConfig {
 
                                 // Any remaining endpoint requires login
                                 .anyRequest()
-                                .authenticated()
+                                .permitAll()
                 )
 
                 .authenticationProvider(authenticationProvider())
