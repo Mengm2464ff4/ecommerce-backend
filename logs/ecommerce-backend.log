@@ -20,3 +20,8 @@
 2026-10-31T12:34:23.276+07:00  INFO 14084 --- [ecommerce-backend] [main] c.e.e.Services.PayWayService             : PayWay configured. merchantIdConfigured=true, apiKeyConfigured=true, sandboxMode=true, baseUrl=https://checkout-sandbox.payway.com.kh
 2026-10-31T12:34:24.226+07:00  INFO 14084 --- [ecommerce-backend] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2026-10-31T12:34:24.234+07:00  INFO 14084 --- [ecommerce-backend] [main] c.e.e.EcommerceApplication               : Started EcommerceApplication in 9.829 seconds (process running for 10.504)
+2026-10-31T12:36:36.812+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-31T12:36:36.812+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-31T12:36:36.814+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-10-31T12:36:36.913+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] c.e.e.Controller.ProductController       : Fetching active products
+2026-10-31T12:36:37.148+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-3] c.e.e.Controller.CartController          : Fetching cart for user: deploy
