@@ -61,29 +61,6 @@ public class UserController {
     }
 
 
-    // NEW ENDPOINT FOR REAL STATS
-
-//    @GetMapping("/me/stats")
-//    public ResponseEntity<ApiResponse<Map<String, Object>>> getUserStats(Authentication authentication) {
-//        String username = authentication.getName();
-//
-//        // 1. Find the user
-//        User user = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//
-//        // 2. Count the REAL orders using the user's ID
-//        long realOrderCount = orderRepository.countByUserId(user.getId());
-//
-//        // 3. Put the real numbers in the map
-//        Map<String, Object> stats = new HashMap<>();
-//        stats.put("orders", realOrderCount); // Real count (e.g., 2)
-//        stats.put("wishlist", 0);
-//        stats.put("memberSince", user.getCreatedAt() != null ? user.getCreatedAt().toLocalDate().toString() : "Recently");
-//        stats.put("rewardPoints", 0);
-//
-//        return ResponseEntity.ok(ApiResponse.success(stats, "User stats retrieved successfully"));
-//    }
-
     @GetMapping("/me/stats")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getUserStats(Authentication authentication) {
         String username = authentication.getName();
@@ -212,8 +189,8 @@ public class UserController {
 
     @GetMapping("/make-me-admin")
     public ResponseEntity<ApiResponse<String>> makeMeAdmin(Authentication authentication) {
-        String email = authentication.getName(); // This is the email
-        User user = userRepository.findByEmail(email)
+        String email = authentication.getName(); // 👈 THIS IS EMAIL
+        User user = userRepository.findByEmail(email) // 👈 CHANGE TO findByEmail
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setRole(Role.ADMIN);
