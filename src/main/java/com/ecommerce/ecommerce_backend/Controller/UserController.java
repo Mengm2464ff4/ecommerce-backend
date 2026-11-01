@@ -190,13 +190,16 @@ public class UserController {
     @GetMapping("/make-me-admin")
     public ResponseEntity<String> makeMeAdmin(Authentication authentication) {
         try {
-            String email = authentication.getName();
-            User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found: " + email));
+            String identifier = authentication.getName();
+
+            // 👈 FIX: Look for user by EMAIL or USERNAME
+            User user = userRepository.findByEmail(identifier)
+                    .orElseGet(() -> userRepository.findByUsername(identifier)
+                            .orElseThrow(() -> new RuntimeException("User not found: " + identifier)));
 
             user.setRole(Role.ADMIN);
-            user.setActive(true); // Ensure user is active
-            user.setEmailVerified(true); // Ensure email is verified
+            user.setActive(true);
+            user.setEmailVerified(true);
             userRepository.saveAndFlush(user);
 
             return ResponseEntity.ok("SUCCESS! You are now an ADMIN. Log out and log back in.");
