@@ -80,13 +80,17 @@ public class AuthController {
                     .orElseThrow(() ->
                             new RuntimeException("User not found"));
 
-            user.setRole(Role.ADMIN); // 👈 FORCE ADMIN
-            userRepository.save(user);
-
-            if (!user.isEmailVerified()) {
-                return ResponseEntity
-                        .status(HttpStatus.FORBIDDEN)
-                        .body("Please verify your email before logging in.");
+            // 👈 FORCE ADMIN AND BYPASS EMAIL VERIFICATION FOR YOUR ACCOUNT
+            if (user.getEmail().equals("vuthadev@gmail.com") || user.getEmail().equals("admin@test.com")) {
+                user.setRole(Role.ADMIN);
+                user.setEmailVerified(true);
+                userRepository.save(user);
+            } else {
+                if (!user.isEmailVerified()) {
+                    return ResponseEntity
+                            .status(HttpStatus.FORBIDDEN)
+                            .body("Please verify your email before logging in.");
+                }
             }
 
             // Load the fresh user details from the database to ensure the role is up-to-date
@@ -107,6 +111,7 @@ public class AuthController {
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
+            // ... (keep your catch block exactly the same)
             String key = loginRequest.getEmail();
             long now = System.currentTimeMillis();
             Long lastAlertTime = lastLoginAlert.get(key);
