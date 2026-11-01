@@ -64,7 +64,7 @@ public class UserController {
     @GetMapping("/me/stats")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getUserStats(Authentication authentication) {
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByEmail(username) // 👈 FIXED
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         long realOrderCount = orderRepository.countByUserId(user.getId());
