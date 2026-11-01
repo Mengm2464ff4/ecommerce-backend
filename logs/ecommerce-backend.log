@@ -27,3 +27,18 @@
 2026-10-31T12:36:37.148+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-3] c.e.e.Controller.CartController          : Fetching cart for user: deploy
 2026-10-31T13:23:24.831+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-8] c.e.e.Controller.ProductController       : Fetching active products
 2026-10-31T13:23:24.886+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-4] c.e.e.Controller.CartController          : Fetching cart for user: deploy
+2026-10-31T16:34:19.014+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-4] c.e.e.Controller.AuthController          : Google backend endpoint called. Token present: true
+2026-10-31T16:34:20.668+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-4] c.e.e.Controller.AuthController          : Google login successful for: vuthadev@gmail.com (new: false)
+2026-10-31T16:34:21.175+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-9] c.e.e.Controller.ProductController       : Fetching all products - page: 0, size: 1
+2026-10-31T16:34:21.193+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-2] c.e.e.Controller.CategoryController      : Fetching all categories as list
+2026-10-31T16:34:21.194+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-8] c.e.e.Controller.CartController          : Fetching cart for user: mitchel
+2026-10-31T16:34:21.238+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-4] c.e.e.Controller.UserController          : Fetching all users with pagination
+2026-10-31T16:34:21.238+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] c.e.e.Controller.OrderController         : Fetching all orders for admin
+2026-10-31T16:34:23.263+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-11] c.e.e.Controller.ProductController       : Fetching active products
+2026-10-31T17:10:18.522+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-1] c.e.e.Controller.ProductController       : Fetching active products
+2026-10-31T17:10:28.768+07:00  INFO 14084 --- [ecommerce-backend] [http-nio-8080-exec-10] c.e.e.Controller.ProductController       : Fetching active products
+2026-10-31T17:40:53.475+07:00  INFO 14084 --- [ecommerce-backend] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-31T17:40:53.487+07:00  INFO 14084 --- [ecommerce-backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-10-31T17:40:53.507+07:00  INFO 14084 --- [ecommerce-backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-31T17:40:53.522+07:00  INFO 14084 --- [ecommerce-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : EcommerceHikariPool - Shutdown initiated...
+2026-10-31T17:40:53.527+07:00  INFO 14084 --- [ecommerce-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : EcommerceHikariPool - Shutdown completed.

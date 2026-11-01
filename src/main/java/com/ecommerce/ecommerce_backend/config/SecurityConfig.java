@@ -73,7 +73,7 @@ public class SecurityConfig {
 
         http
                 // CORS is loaded from CorsConfig.corsConfigurationSource()
-                .cors(cors -> cors.disable())
+                .cors(cors -> {})
 
                 // JWT APIs normally do not use CSRF tokens
                 .csrf(csrf -> csrf.disable())
