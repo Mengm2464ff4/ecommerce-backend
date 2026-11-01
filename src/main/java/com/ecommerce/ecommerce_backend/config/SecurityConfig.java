@@ -94,6 +94,7 @@ public class SecurityConfig {
                                 .requestMatchers(PUBLIC_URLS)
                                 .permitAll()
 
+
                                 // 👈 ADD THIS LINE HERE
                                 .requestMatchers("/api/users/make-me-admin").permitAll()
 
