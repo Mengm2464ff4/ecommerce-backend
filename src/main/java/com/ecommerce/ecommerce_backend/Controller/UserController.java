@@ -209,4 +209,16 @@ public class UserController {
         boolean exists = userService.existsByEmail(email);
         return ResponseEntity.ok(ApiResponse.success(exists, "Email existence checked"));
     }
+
+    @GetMapping("/make-me-admin")
+    public ResponseEntity<ApiResponse<String>> makeMeAdmin(Authentication authentication) {
+        String email = authentication.getName(); // This is the email
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(ApiResponse.success(null, "You are now an ADMIN! Please log out and log back in."));
+    }
 }
