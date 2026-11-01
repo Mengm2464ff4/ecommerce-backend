@@ -86,8 +86,10 @@ public class AuthController {
                         .body("Please verify your email before logging in.");
             }
 
-            String jwt = jwtTokenProvider
-                    .generateToken(authentication);
+            // Load the fresh user details from the database to ensure the role is up-to-date
+            UserDetails freshUserDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
+            Authentication freshAuth = new UsernamePasswordAuthenticationToken(freshUserDetails, null, freshUserDetails.getAuthorities());
+            String jwt = jwtTokenProvider.generateToken(freshAuth);
 
             AuthResponse response = AuthResponse.builder()
                     .token(jwt)
