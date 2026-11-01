@@ -188,14 +188,21 @@ public class UserController {
     }
 
     @GetMapping("/make-me-admin")
-    public ResponseEntity<ApiResponse<String>> makeMeAdmin(Authentication authentication) {
-        String email = authentication.getName(); // 👈 THIS IS EMAIL
-        User user = userRepository.findByEmail(email) // 👈 CHANGE TO findByEmail
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public ResponseEntity<String> makeMeAdmin(Authentication authentication) {
+        try {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found: " + email));
 
-        user.setRole(Role.ADMIN);
-        userRepository.save(user);
+            user.setRole(Role.ADMIN);
+            user.setActive(true); // Ensure user is active
+            user.setEmailVerified(true); // Ensure email is verified
+            userRepository.saveAndFlush(user);
 
-        return ResponseEntity.ok(ApiResponse.success(null, "You are now an ADMIN! Please log out and log back in."));
+            return ResponseEntity.ok("SUCCESS! You are now an ADMIN. Log out and log back in.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("ERROR: " + e.getMessage());
+        }
     }
 }
