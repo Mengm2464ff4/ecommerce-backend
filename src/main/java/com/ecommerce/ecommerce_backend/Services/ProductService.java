@@ -189,6 +189,7 @@ public class ProductService {
                 .ratingCount(request.getRatingCount() != null ? request.getRatingCount() : 0)  // ← ADD
                 .badge(request.getBadge()) // // 👈 ADD
                 .discountPercent(request.getDiscountPercent())    // 👈 ADD
+                .imageUrl(request.getImageUrl()) // 👈 ADD IT HERE
                 .subcategory(request.getSubcategory()) // ADD NEW
                 .build();
 
@@ -217,12 +218,16 @@ public class ProductService {
         product.setSubcategory(request.getSubcategory()); // ← ADD
         product.setSubcategory(request.getSubcategory());
         product.setRating(request.getRating() != null ? request.getRating() : BigDecimal.ZERO);
-        product.setBadge(request.getBadge());                    // 👈 ADD
-        product.setDiscountPercent(request.getDiscountPercent()); // 👈 ADD
+        product.setBadge(request.getBadge());
+        product.setDiscountPercent(request.getDiscountPercent());
         product.setRatingCount(request.getRatingCount() != null ? request.getRatingCount() : 0);
 
         Product updatedProduct = productRepository.save(product);
         log.info("Updated product: {}", updatedProduct.getName());
+        if (request.getImageUrl() != null && request.getImageUrl().startsWith("http")) {
+            product.setImageUrl(request.getImageUrl());
+            updatedProduct = productRepository.save(product);
+        }
         return convertToResponse(updatedProduct);
     }
 
@@ -334,20 +339,20 @@ public class ProductService {
                 .price(product.getPrice())
                 .stock(product.getStock())
                 .imageUrl(product.getImageUrl())
-                .brand(product.getBrand())     // ← must be here
-                .size(product.getSize())       // ← must be here
-                .color(product.getColor())     // ← must be here
-                .fit(product.getFit())         // ← must be here
-                .subcategory(product.getSubcategory())
-                .badge(product.getBadge())                        // 👈 ADD
-                .discountPercent(product.getDiscountPercent())    // 👈 ADD
+                .brand(product.getBrand())
+                .size(product.getSize())
+                .color(product.getColor())
+                .fit(product.getFit())
+                .subcategory(product.getSubcategory()) // 👈 KEEP THIS
+                .badge(product.getBadge())
+                .discountPercent(product.getDiscountPercent())
                 .rating(product.getRating())
                 .ratingCount(product.getRatingCount())
                 .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
                 .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
-                .isActive(product.isActive())   // ← already correct
+                .isActive(product.isActive())
                 .createdAt(product.getCreatedAt())
-                .build();
+                .build(); // 👈 END HERE
     }
 
 
