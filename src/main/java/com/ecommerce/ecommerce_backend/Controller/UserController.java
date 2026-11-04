@@ -60,27 +60,31 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(updatedUser, "Profile updated successfully."));
     }
 
-
     @GetMapping("/me/stats")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getUserStats(Authentication authentication) {
-        String username = authentication.getName();
-        User user = userRepository.findByEmail(username) // 👈 FIXED
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        try {
+            String identifier = authentication.getName();
 
-        long realOrderCount = orderRepository.countByUserId(user.getId());
+            // 1. Find user by email OR username
+            User user = userRepository.findByEmail(identifier)
+                    .orElseGet(() -> userRepository.findByUsername(identifier)
+                            .orElseThrow(() -> new RuntimeException("User not found: " + identifier)));
 
-        // 👈 Using countByUserId here
-        long realWishlistCount = wishlistRepository.countByUserId(user.getId());
+            // 2. Count orders and wishlist safely
+            long realOrderCount = orderRepository.countByUserId(user.getId());
+            long realWishlistCount = wishlistRepository.countByUserId(user.getId());
 
-        System.out.println("=== CHECKING ID: " + user.getId() + " | WISHLIST COUNT: " + realWishlistCount + " ===");
+            Map<String, Object> stats = new HashMap<>();
+            stats.put("orders", realOrderCount);
+            stats.put("wishlist", realWishlistCount);
+            stats.put("memberSince", user.getCreatedAt() != null ? user.getCreatedAt().toLocalDate().toString() : "Recently");
+            stats.put("rewardPoints", 0);
 
-        Map<String, Object> stats = new HashMap<>();
-        stats.put("orders", realOrderCount);
-        stats.put("wishlist", realWishlistCount);
-        stats.put("memberSince", user.getCreatedAt() != null ? user.getCreatedAt().toLocalDate().toString() : "Recently");
-        stats.put("rewardPoints", 0);
-
-        return ResponseEntity.ok(ApiResponse.success(stats, "User stats retrieved successfully"));
+            return ResponseEntity.ok(ApiResponse.success(stats, "User stats retrieved successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(ApiResponse.error("Error fetching stats: " + e.getMessage(), 500));
+        }
     }
 
 
